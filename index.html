@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gita Guide</title>
+  <meta name="description" content="Daily Gita shloka, Rashifal, free Kundli and guidance inspired by Shri Krishna." />
+  <meta name="theme-color" content="#0b2a4a" />
+  <link rel="icon" href="assets/feather.svg" type="image/svg+xml" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;700&family=Tiro+Devanagari+Sanskrit&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a href="#home" class="brand">
+      <img src="assets/feather.svg" alt="" width="34" height="34" />
+      <span>
+        <strong data-i18n="appName">Gita Guide</strong>
+        <small data-i18n="tagline">Wisdom of Shri Krishna for every day</small>
+      </span>
+    </a>
+    <button id="langToggle" class="lang-toggle" type="button" aria-label="Switch language">हिं</button>
+  </header>
+
+  <nav class="tabs" aria-label="Sections">
+    <a href="#home" data-tab="home"><span aria-hidden="true">🪔</span><span data-i18n="navHome">Home</span></a>
+    <a href="#horoscope" data-tab="horoscope"><span aria-hidden="true">🌙</span><span data-i18n="navHoro">Rashifal</span></a>
+    <a href="#kundli" data-tab="kundli"><span aria-hidden="true">🪷</span><span data-i18n="navKundli">Kundli</span></a>
+    <a href="#chat" data-tab="chat"><span aria-hidden="true">🪈</span><span data-i18n="navChat">Ask</span></a>
+  </nav>
+
+  <main>
+    <!-- HOME -->
+    <section id="view-home" class="view">
+      <article class="card shloka-card">
+        <div class="card-head">
+          <h2 data-i18n="shlokaOfDay">Shloka of the Day</h2>
+          <span id="shlokaDate" class="muted"></span>
+        </div>
+        <p id="shlokaSa" class="sanskrit"></p>
+        <p id="shlokaRef" class="ref"></p>
+        <h3 data-i18n="meaning">Meaning</h3>
+        <p id="shlokaMeaning"></p>
+        <div class="lesson"><strong data-i18n="todaysLesson">Today's lesson</strong>: <span id="shlokaLesson"></span></div>
+      </article>
+
+      <h2 class="section-title" data-i18n="quickLinks">Explore</h2>
+      <div class="quick">
+        <a href="#horoscope" class="card quick-item"><span class="qi-icon">🌙</span><strong data-i18n="qlHoro"></strong><small data-i18n="qlHoroSub"></small></a>
+        <a href="#kundli" class="card quick-item"><span class="qi-icon">🪷</span><strong data-i18n="qlKundli"></strong><small data-i18n="qlKundliSub"></small></a>
+        <a href="#chat" class="card quick-item"><span class="qi-icon">🪈</span><strong data-i18n="qlChat"></strong><small data-i18n="qlChatSub"></small></a>
+      </div>
+    </section>
+
+    <!-- HOROSCOPE -->
+    <section id="view-horoscope" class="view" hidden>
+      <h1 data-i18n="horoTitle">Daily Rashifal</h1>
+      <p class="muted" data-i18n="horoSub">Choose your Moon sign (rashi)</p>
+      <div id="rashiGrid" class="rashi-grid" role="listbox"></div>
+      <article id="horoResult" class="card" hidden></article>
+      <p><a href="#kundli" data-i18n="dontKnowRashi">Don't know your rashi?</a></p>
+    </section>
+
+    <!-- KUNDLI -->
+    <section id="view-kundli" class="view" hidden>
+      <h1 data-i18n="kundliTitle">Free Kundli</h1>
+      <p class="muted" data-i18n="kundliSub"></p>
+      <form id="kundliForm" class="card form">
+        <label><span data-i18n="name">Name</span><input name="name" type="text" autocomplete="name" /></label>
+        <div class="row">
+          <label><span data-i18n="dob">Date of birth</span><input name="dob" type="date" required /></label>
+          <label><span data-i18n="tob">Time of birth</span><input name="tob" type="time" required /></label>
+        </div>
+        <label><span data-i18n="pob">Place of birth</span><select name="city" id="citySelect"></select></label>
+        <div class="row three">
+          <label><span data-i18n="latitude">Latitude</span><input name="lat" type="number" step="0.0001" min="-90" max="90" required /></label>
+          <label><span data-i18n="longitude">Longitude</span><input name="lon" type="number" step="0.0001" min="-180" max="180" required /></label>
+          <label><span data-i18n="tz">UTC offset</span><input name="tz" type="number" step="0.25" min="-12" max="14" required /></label>
+        </div>
+        <button type="submit" class="btn" data-i18n="generate">Generate Kundli</button>
+      </form>
+      <div id="kundliResult" hidden></div>
+    </section>
+
+    <!-- CHAT -->
+    <section id="view-chat" class="view chat-view" hidden>
+      <div class="chat-header card">
+        <img src="assets/feather.svg" alt="" width="40" height="40" />
+        <div>
+          <strong data-i18n="chatTitle">Ask Gita Guide</strong>
+          <small class="muted" data-i18n="chatSub"></small>
+        </div>
+      </div>
+      <div id="chatLog" class="chat-log" aria-live="polite"></div>
+      <div id="chatSuggestions" class="chips"></div>
+      <form id="chatForm" class="chat-form">
+        <input id="chatInput" type="text" autocomplete="off" data-i18n-placeholder="chatPlaceholder" />
+        <button type="submit" class="btn" data-i18n="send">Send</button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer"><small data-i18n="disclaimer"></small></footer>
+
+  <script src="js/data.js"></script>
+  <script src="js/astro.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
